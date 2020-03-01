@@ -16,4 +16,8 @@ public class SensorCommand {
                 ", objectId='" + objectId + '\'' +
                 '}';
     }
+
+    public void Send() {
+        System.out.println("Pretend we're sending command " + this);
+    }
 }
