@@ -4,8 +4,7 @@ import static ru.sbt.mipt.oop.DoorEventType.*;
 import static ru.sbt.mipt.oop.LightCommands.TurnTheLightOffCommand;
 
 public class DoorEventHandler {
-
-    public static void HandleDoorEvent(SmartHome smartHome, SensorEvent event) {
+    public static void HandleEvent(SmartHome smartHome, SensorEvent event) {
         if (event.isDoor()) {
             for (Room room : smartHome.getRooms()) {
                 for (Door door : room.getDoors()) {
@@ -45,5 +44,4 @@ public class DoorEventHandler {
             }
         }
     }
-
 }
