@@ -1,5 +1,6 @@
 package ru.sbt.mipt.oop;
 
+import static ru.sbt.mipt.oop.DoorEventType.DOOR_CLOSED;
 import static ru.sbt.mipt.oop.LightCommands.TurnTheLightOffCommand;
 
 public class HallDoorEventHandler implements EventHandler {
@@ -11,14 +12,18 @@ public class HallDoorEventHandler implements EventHandler {
 
     @Override
     public void HandleEvent(SensorEvent event) {
-        if (event.isDoor()) {
+        if (event.isDoor() && ((DoorEvent) event).getType() == DOOR_CLOSED) {
             Room room = findTheRoom(event);
-            if (room.getName().equals("hall")) {
-                for (Room homeRoom : smartHome.getRooms()) {
-                    for (Light light : homeRoom.getLights()) {
-                        TurnTheLightOffCommand(light);
-                    }
-                }
+            if (room != null && room.getName().equals("hall")) {
+                TurnOffAllTheLights();
+            }
+        }
+    }
+
+    private void TurnOffAllTheLights() {
+        for (Room homeRoom : smartHome.getRooms()) {
+            for (Light light : homeRoom.getLights()) {
+                TurnTheLightOffCommand(light);
             }
         }
     }

@@ -6,7 +6,7 @@ public class LightEventHandler implements EventHandler{
     private final SmartHome smartHome;
 
     public LightEventHandler(SmartHome smartHome) {
-        this.smartHome = smartHome; //
+        this.smartHome = smartHome;
     }
 
     @Override

@@ -1,7 +1,6 @@
 package ru.sbt.mipt.oop;
 
 import static ru.sbt.mipt.oop.DoorEventType.*;
-import static ru.sbt.mipt.oop.LightCommands.TurnTheLightOffCommand;
 
 public class DoorEventHandler implements EventHandler{
     private final SmartHome smartHome;
@@ -22,8 +21,6 @@ public class DoorEventHandler implements EventHandler{
                 OpenTheDoor(room, door);
             } else {
                 CloseTheDoor(room, door);
-                HallDoorEventHandler hallDoorEventHandler = new HallDoorEventHandler(this.smartHome);
-                hallDoorEventHandler.HandleEvent(event);
             }
         }
     }
@@ -58,15 +55,5 @@ public class DoorEventHandler implements EventHandler{
     private void OpenTheDoor(Room room, Door door) {
         door.setOpen(true);
         System.out.println("Door " + door.getId() + " in room " + room.getName() + " was opened.");
-    }
-
-    private void CheckIfTheHallDoorWasClosed(SmartHome smartHome, Room room) {
-        if (room.getName().equals("hall")) {
-            for (Room homeRoom : smartHome.getRooms()) {
-                for (Light light : homeRoom.getLights()) {
-                    TurnTheLightOffCommand(light);
-                }
-            }
-        }
     }
 }
