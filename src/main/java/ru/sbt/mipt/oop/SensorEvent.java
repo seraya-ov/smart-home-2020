@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop;
 
-public abstract class SensorEvent implements EventHandler {
+public abstract class SensorEvent {
     private final String objectId;
 
     public SensorEvent(String objectId) {
@@ -10,5 +10,8 @@ public abstract class SensorEvent implements EventHandler {
     public String getObjectId() {
         return objectId;
     }
+
+    public abstract boolean isLight();
+    public abstract boolean isDoor();
 
 }
