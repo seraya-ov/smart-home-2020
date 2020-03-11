@@ -11,27 +11,27 @@ public class LightEventHandler implements EventHandler{
     }
 
     @Override
-    public void HandleEvent(SensorEvent event) {
+    public void handleEvent(SensorEvent event) {
         if (event.getType() == LIGHT) {
             Action action = new Action((HomeObject homeObject) -> {
                 if (homeObject.getObjectType() == LIGHT && homeObject.getId().equals(event.getObjectId())) {
                     if (((LightEvent) event).getLightEventType() == LIGHT_ON) {
-                        TurnTheLightOn((Light) homeObject);
+                        turnTheLightOn((Light) homeObject);
                     } else {
-                        TurnTheLightOff((Light) homeObject);
+                        turnTheLightOff((Light) homeObject);
                     }
                 }
             });
-            smartHome.execute(action);
+            smartHome.Execute(action);
         }
     }
 
-    private void TurnTheLightOff(Light light) {
+    private void turnTheLightOff(Light light) {
         light.setOn(false);
         System.out.println("Light " + light.getId()  + " was turned off.");
     }
 
-    private void TurnTheLightOn(Light light) {
+    private void turnTheLightOn(Light light) {
         light.setOn(true);
         System.out.println("Light " + light.getId() + " was turned on.");
     }

@@ -16,7 +16,7 @@ public class EventSequence {
         while (event != null) {
             System.out.println("Got event: " + event);
             for (EventHandler handler: eventHandlers) {
-                handler.HandleEvent(event);
+                handler.handleEvent(event);
             }
             event = nextSensorEventGenerator.getNextSensorEvent();
         }

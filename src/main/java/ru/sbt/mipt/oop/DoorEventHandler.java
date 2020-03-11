@@ -11,7 +11,7 @@ public class DoorEventHandler implements EventHandler {
     }
 
     @Override
-    public void HandleEvent(SensorEvent event) {
+    public void handleEvent(SensorEvent event) {
         if (event.getType() == DOOR) {
             Action action = new Action((HomeObject homeObject) -> {
                 if (homeObject.getObjectType() == DOOR && homeObject.getId().equals(event.getObjectId())) {
@@ -22,7 +22,7 @@ public class DoorEventHandler implements EventHandler {
                     }
                 }
             });
-            smartHome.execute(action);
+            smartHome.Execute(action);
         }
     }
 

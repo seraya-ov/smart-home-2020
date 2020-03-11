@@ -1,5 +1,5 @@
 package ru.sbt.mipt.oop;
 
 public interface Actionable {
-    void execute(Action action);
+    void Execute(Action action);
 }
