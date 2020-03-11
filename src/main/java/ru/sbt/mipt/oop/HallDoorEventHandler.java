@@ -2,6 +2,8 @@ package ru.sbt.mipt.oop;
 
 import static ru.sbt.mipt.oop.DoorEventType.DOOR_CLOSED;
 import static ru.sbt.mipt.oop.LightCommands.TurnTheLightOffCommand;
+import static ru.sbt.mipt.oop.ObjectType.DOOR;
+import static ru.sbt.mipt.oop.ObjectType.LIGHT;
 
 public class HallDoorEventHandler implements EventHandler {
     private final SmartHome smartHome;
@@ -12,30 +14,26 @@ public class HallDoorEventHandler implements EventHandler {
 
     @Override
     public void HandleEvent(SensorEvent event) {
-        if (event.isDoor() && ((DoorEvent) event).getType() == DOOR_CLOSED) {
-            Room room = findTheRoom(event);
-            if (room != null && room.getName().equals("hall")) {
-                TurnOffAllTheLights();
+        if (event.getType() == DOOR && ((DoorEvent) event).getDoorEventType() == DOOR_CLOSED) {
+            Action action = new Action((HomeObject homeObject) -> {
+                if (homeObject.getObjectType() == DOOR && homeObject.getId().equals(event.getObjectId())) {
+                    TurnOffAllTheLights();
+                }
+            });
+            for (Room room : this.smartHome.getRooms()) {
+                if (room.getName().equals("hall")) {
+                    room.execute(action);
+                }
             }
         }
     }
 
     private void TurnOffAllTheLights() {
-        for (Room homeRoom : smartHome.getRooms()) {
-            for (Light light : homeRoom.getLights()) {
-                TurnTheLightOffCommand(light);
+        Action action = new Action((HomeObject homeObject) -> {
+            if (homeObject.getObjectType() == LIGHT) {
+                TurnTheLightOffCommand((Light) homeObject);
             }
-        }
-    }
-
-    private Room findTheRoom(SensorEvent event) {
-        for (Room room : this.smartHome.getRooms()) {
-            for (Door door : room.getDoors()) {
-                if (door.getId().equals(event.getObjectId())) {
-                    return room;
-                }
-            }
-        }
-        return null;
+        });
+        smartHome.execute(action);
     }
 }

@@ -1,6 +1,7 @@
 package ru.sbt.mipt.oop;
 
 import static ru.sbt.mipt.oop.LightEventType.LIGHT_ON;
+import static ru.sbt.mipt.oop.ObjectType.LIGHT;
 
 public class LightEventHandler implements EventHandler{
     private final SmartHome smartHome;
@@ -11,49 +12,27 @@ public class LightEventHandler implements EventHandler{
 
     @Override
     public void HandleEvent(SensorEvent event) {
-        if (event.isLight()) {
-            Room room = findTheRoom(event);
-            Light light = findTheLight(event);
-            if (light == null || room == null) {
-                return;
-            }
-            if (((LightEvent) event).getType() == LIGHT_ON) {
-                TurnTheLightOn(room, light);
-            } else {
-                TurnTheLightOff(room, light);
-            }
-        }
-    }
-
-    private Light findTheLight(SensorEvent event) {
-        for (Room room : this.smartHome.getRooms()) {
-            for (Light light : room.getLights()) {
-                if (light.getId().equals(event.getObjectId())) {
-                    return light;
+        if (event.getType() == LIGHT) {
+            Action action = new Action((HomeObject homeObject) -> {
+                if (homeObject.getObjectType() == LIGHT && homeObject.getId().equals(event.getObjectId())) {
+                    if (((LightEvent) event).getLightEventType() == LIGHT_ON) {
+                        TurnTheLightOn((Light) homeObject);
+                    } else {
+                        TurnTheLightOff((Light) homeObject);
+                    }
                 }
-            }
+            });
+            smartHome.execute(action);
         }
-        return null;
     }
 
-    private Room findTheRoom(SensorEvent event) {
-        for (Room room : this.smartHome.getRooms()) {
-            for (Light light : room.getLights()) {
-                if (light.getId().equals(event.getObjectId())) {
-                    return room;
-                }
-            }
-        }
-        return null;
-    }
-
-    private void TurnTheLightOff(Room room, Light light) {
+    private void TurnTheLightOff(Light light) {
         light.setOn(false);
-        System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned off.");
+        System.out.println("Light " + light.getId()  + " was turned off.");
     }
 
-    private void TurnTheLightOn(Room room, Light light) {
+    private void TurnTheLightOn(Light light) {
         light.setOn(true);
-        System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned on.");
+        System.out.println("Light " + light.getId() + " was turned on.");
     }
 }

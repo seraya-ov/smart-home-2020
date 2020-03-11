@@ -4,17 +4,20 @@
       "lights": [
         {
           "isOn": false,
-          "id": "1"
+          "id": "1",
+          "objectType": "LIGHT"
         },
         {
           "isOn": true,
-          "id": "2"
+          "id": "2",
+          "objectType": "LIGHT"
         }
       ],
       "doors": [
         {
+          "isOpen": false,
           "id": "1",
-          "isOpen": false
+          "objectType": "DOOR"
         }
       ],
       "name": "kitchen"
@@ -23,13 +26,15 @@
       "lights": [
         {
           "isOn": true,
-          "id": "3"
+          "id": "3",
+          "objectType": "LIGHT"
         }
       ],
       "doors": [
         {
+          "isOpen": false,
           "id": "2",
-          "isOpen": false
+          "objectType": "DOOR"
         }
       ],
       "name": "bathroom"
@@ -38,21 +43,25 @@
       "lights": [
         {
           "isOn": false,
-          "id": "4"
+          "id": "4",
+          "objectType": "LIGHT"
         },
         {
           "isOn": false,
-          "id": "5"
+          "id": "5",
+          "objectType": "LIGHT"
         },
         {
           "isOn": false,
-          "id": "6"
+          "id": "6",
+          "objectType": "LIGHT"
         }
       ],
       "doors": [
         {
+          "isOpen": true,
           "id": "3",
-          "isOpen": true
+          "objectType": "DOOR"
         }
       ],
       "name": "bedroom"
@@ -61,21 +70,25 @@
       "lights": [
         {
           "isOn": false,
-          "id": "7"
+          "id": "7",
+          "objectType": "LIGHT"
         },
         {
           "isOn": false,
-          "id": "8"
+          "id": "8",
+          "objectType": "LIGHT"
         },
         {
           "isOn": false,
-          "id": "9"
+          "id": "9",
+          "objectType": "LIGHT"
         }
       ],
       "doors": [
         {
+          "isOpen": false,
           "id": "4",
-          "isOpen": false
+          "objectType": "DOOR"
         }
       ],
       "name": "hall"

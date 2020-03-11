@@ -1,8 +1,9 @@
 package ru.sbt.mipt.oop;
 
 import static ru.sbt.mipt.oop.DoorEventType.*;
+import static ru.sbt.mipt.oop.ObjectType.DOOR;
 
-public class DoorEventHandler implements EventHandler{
+public class DoorEventHandler implements EventHandler {
     private final SmartHome smartHome;
 
     public DoorEventHandler(SmartHome smartHome) {
@@ -11,49 +12,27 @@ public class DoorEventHandler implements EventHandler{
 
     @Override
     public void HandleEvent(SensorEvent event) {
-        if (event.isDoor()) {
-            Door door = findTheDoor(event);
-            Room room = findTheRoom(event);
-            if (door == null || room == null) {
-                return;
-            }
-            if (((DoorEvent) event).getType() == DOOR_OPEN) {
-                OpenTheDoor(room, door);
-            } else {
-                CloseTheDoor(room, door);
-            }
-        }
-    }
-
-    private Door findTheDoor(SensorEvent event) {
-        for (Room room : this.smartHome.getRooms()) {
-            for (Door door : room.getDoors()) {
-                if (door.getId().equals(event.getObjectId())) {
-                    return door;
+        if (event.getType() == DOOR) {
+            Action action = new Action((HomeObject homeObject) -> {
+                if (homeObject.getObjectType() == DOOR && homeObject.getId().equals(event.getObjectId())) {
+                    if (((DoorEvent) event).getDoorEventType() == DOOR_OPEN) {
+                        OpenTheDoor((Door) homeObject);
+                    } else {
+                        CloseTheDoor((Door) homeObject);
+                    }
                 }
-            }
+            });
+            smartHome.execute(action);
         }
-        return null;
     }
 
-    private Room findTheRoom(SensorEvent event) {
-        for (Room room : this.smartHome.getRooms()) {
-            for (Door door : room.getDoors()) {
-                if (door.getId().equals(event.getObjectId())) {
-                    return room;
-                }
-            }
-        }
-        return null;
-    }
-
-    private void CloseTheDoor(Room room, Door door) {
+    private void CloseTheDoor(Door door) {
         door.setOpen(false);
-        System.out.println("Door " + door.getId() + " in room " + room.getName() + " was closed.");
+        System.out.println("Door " + door.getId()  + " was closed.");
     }
 
-    private void OpenTheDoor(Room room, Door door) {
+    private void OpenTheDoor(Door door) {
         door.setOpen(true);
-        System.out.println("Door " + door.getId() + " in room " + room.getName() + " was opened.");
+        System.out.println("Door " + door.getId()  + " was opened.");
     }
 }

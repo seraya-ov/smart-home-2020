@@ -4,11 +4,11 @@ public class LightEvent extends SensorEvent{
     private final LightEventType lightEventType;
 
     public LightEvent(String objectId, LightEventType lightEventType) {
-        super(objectId);
+        super(objectId, ObjectType.LIGHT);
         this.lightEventType = lightEventType;
     }
 
-    public LightEventType getType() {
+    public LightEventType getLightEventType() {
         return lightEventType;
     }
 
@@ -18,15 +18,5 @@ public class LightEvent extends SensorEvent{
                 "lightEventType=" + lightEventType +
                 ", objectId=" + super.getObjectId() +
                 '}';
-    }
-
-    @Override
-    public boolean isDoor() {
-        return false;
-    }
-
-    @Override
-    public boolean isLight() {
-        return true;
     }
 }

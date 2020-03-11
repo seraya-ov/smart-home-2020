@@ -4,11 +4,11 @@ public class DoorEvent extends SensorEvent{
     private final DoorEventType doorEventType;
 
     public DoorEvent(String objectId, DoorEventType doorEventType) {
-        super(objectId);
+        super(objectId, ObjectType.DOOR);
         this.doorEventType = doorEventType;
     }
 
-    public DoorEventType getType() {
+    public DoorEventType getDoorEventType() {
         return doorEventType;
     }
 
@@ -20,13 +20,4 @@ public class DoorEvent extends SensorEvent{
                 '}';
     }
 
-    @Override
-    public boolean isDoor() {
-        return true;
-    }
-
-    @Override
-    public boolean isLight() {
-        return false;
-    }
 }
