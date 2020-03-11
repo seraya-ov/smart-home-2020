@@ -20,7 +20,9 @@
           "objectType": "DOOR"
         }
       ],
-      "name": "kitchen"
+      "name": "kitchen",
+      "id": "kitchen",
+      "objectType": "ROOM"
     },
     {
       "lights": [
@@ -37,7 +39,9 @@
           "objectType": "DOOR"
         }
       ],
-      "name": "bathroom"
+      "name": "bathroom",
+      "id": "bathroom",
+      "objectType": "ROOM"
     },
     {
       "lights": [
@@ -64,7 +68,9 @@
           "objectType": "DOOR"
         }
       ],
-      "name": "bedroom"
+      "name": "bedroom",
+      "id": "bedroom",
+      "objectType": "ROOM"
     },
     {
       "lights": [
@@ -91,7 +97,9 @@
           "objectType": "DOOR"
         }
       ],
-      "name": "hall"
+      "name": "hall",
+      "id": "hall",
+      "objectType": "ROOM"
     }
   ]
 }
