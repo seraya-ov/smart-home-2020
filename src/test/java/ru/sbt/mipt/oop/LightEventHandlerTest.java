@@ -23,7 +23,7 @@ public class LightEventHandlerTest {
     Light light = new Light("0", true);
 
     @Test
-    public void TestTurnTheLightOffEvent() {
+    public void turnTheLightOff() {
         handler = new LightEventHandler(smartHome);
         handler.handleEvent(lightEvent);
         Mockito.when(lightEvent.getType()).thenReturn(ObjectType.LIGHT);
@@ -39,7 +39,7 @@ public class LightEventHandlerTest {
     }
 
     @Test
-    public void TestTurnTheLightOnEvent() {
+    public void turnTheLightOn() {
         handler = new LightEventHandler(smartHome);
         handler.handleEvent(lightEvent);
         Mockito.when(lightEvent.getType()).thenReturn(ObjectType.LIGHT);

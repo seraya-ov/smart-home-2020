@@ -25,7 +25,7 @@ public class DoorEventHandlerTest {
     Door door = new Door(true, "0");
 
     @Test
-    public void TestCloseTheDoorEvent() {
+    public void closeTheDoor() {
         handler = new DoorEventHandler(smartHome);
         handler.handleEvent(doorEvent);
         Mockito.when(doorEvent.getType()).thenReturn(ObjectType.DOOR);
@@ -41,7 +41,7 @@ public class DoorEventHandlerTest {
     }
 
     @Test
-    public void TestOpenTheDoorEvent() {
+    public void openTheDoor() {
         handler = new DoorEventHandler(smartHome);
         handler.handleEvent(doorEvent);
         Mockito.when(doorEvent.getType()).thenReturn(ObjectType.DOOR);

@@ -28,7 +28,7 @@ public class HallDoorEventHandlerTest {
     Light light = new Light("10", true);
 
     @Test
-    public void TestTurnOffTheLight() {
+    public void turnOffTheLights() {
         handler = new HallDoorEventHandler(smartHome);
         handler.handleEvent(doorEvent);
         Mockito.when(doorEvent.getType()).thenReturn(ObjectType.DOOR);
@@ -54,7 +54,7 @@ public class HallDoorEventHandlerTest {
     }
 
     @Test
-    public void TestWrongRoom() {
+    public void ignoreWrongRooms() {
         handler = new HallDoorEventHandler(smartHome);
         handler.handleEvent(doorEvent);
         Mockito.when(doorEvent.getType()).thenReturn(ObjectType.DOOR);
