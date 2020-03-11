@@ -33,7 +33,7 @@ public class LightEventHandlerTest {
             Object[] args = invocation.getArguments();
             ((Action)args[0]).getAction().accept(light);
             return null;
-        }).when(smartHome).Execute(Mockito.any(Action.class));
+        }).when(smartHome).execute(Mockito.any(Action.class));
         handler.handleEvent(lightEvent);
         assertFalse(light.isOn());
     }
@@ -49,7 +49,7 @@ public class LightEventHandlerTest {
             Object[] args = invocation.getArguments();
             ((Action)args[0]).getAction().accept(light);
             return null;
-        }).when(smartHome).Execute(Mockito.any(Action.class));
+        }).when(smartHome).execute(Mockito.any(Action.class));
         handler.handleEvent(lightEvent);
         assertTrue(light.isOn());
     }

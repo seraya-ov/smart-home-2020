@@ -23,12 +23,12 @@ public class SmartHomeTest {
     @Test
     public void executeEmptyHome() {
         smartHome = new SmartHome();
-        smartHome.Execute(action);
+        smartHome.execute(action);
     }
 
     @Test
     public void executeNotEmptyHome() {
         smartHome = new SmartHome(new ArrayList<>(Collections.singletonList(room)));
-        smartHome.Execute(action);
+        smartHome.execute(action);
     }
 }

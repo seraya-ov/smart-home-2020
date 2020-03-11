@@ -35,7 +35,7 @@ public class DoorEventHandlerTest {
             Object[] args = invocation.getArguments();
             ((Action) args[0]).getAction().accept(door);
             return null;
-        }).when(smartHome).Execute(Mockito.any(Action.class));
+        }).when(smartHome).execute(Mockito.any(Action.class));
         handler.handleEvent(doorEvent);
         assertFalse(door.isOpen());
     }
@@ -51,7 +51,7 @@ public class DoorEventHandlerTest {
             Object[] args = invocation.getArguments();
             ((Action) args[0]).getAction().accept(door);
             return null;
-        }).when(smartHome).Execute(Mockito.any(Action.class));
+        }).when(smartHome).execute(Mockito.any(Action.class));
         handler.handleEvent(doorEvent);
         assertTrue(door.isOpen());
     }

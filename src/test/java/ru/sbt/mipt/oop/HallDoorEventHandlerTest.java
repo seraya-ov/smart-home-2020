@@ -42,13 +42,13 @@ public class HallDoorEventHandlerTest {
             ((Action)args[0]).getAction().accept(door);
             ((Action)args[0]).getAction().accept(light);
             return null;
-        }).when(smartHome).Execute(Mockito.any(Action.class));
+        }).when(smartHome).execute(Mockito.any(Action.class));
         Mockito.doAnswer((Answer<Void>) invocation -> {
             Object[] args = invocation.getArguments();
             ((Action)args[0]).getAction().accept(light);
             ((Action)args[0]).getAction().accept(door);
             return null;
-        }).when(room).Execute(Mockito.any(Action.class));
+        }).when(room).execute(Mockito.any(Action.class));
         handler.handleEvent(doorEvent);
         assertFalse(light.isOn());
     }
@@ -65,7 +65,7 @@ public class HallDoorEventHandlerTest {
             Object[] args = invocation.getArguments();
             ((Action)args[0]).getAction().accept(room);
             return null;
-        }).when(smartHome).Execute(Mockito.any(Action.class));
+        }).when(smartHome).execute(Mockito.any(Action.class));
         handler.handleEvent(doorEvent);
         assertTrue(light.isOn());
     }

@@ -23,9 +23,9 @@ public class SmartHome implements Actionable {
     }
 
     @Override
-    public void Execute(Action action) {
+    public void execute(Action action) {
         for (Room room: rooms) {
-            room.Execute(action);
+            room.execute(action);
         }
     }
 

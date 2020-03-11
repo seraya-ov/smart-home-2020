@@ -22,7 +22,7 @@ public class LightEventHandler implements EventHandler{
                     }
                 }
             });
-            smartHome.Execute(action);
+            smartHome.execute(action);
         }
     }
 

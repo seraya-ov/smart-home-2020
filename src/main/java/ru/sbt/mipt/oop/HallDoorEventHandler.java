@@ -21,10 +21,10 @@ public class HallDoorEventHandler implements EventHandler {
                            turnOffAllTheLights();
                        }
                    });
-                   ((Room) homeObject).Execute(action);
+                   ((Room) homeObject).execute(action);
                }
             });
-            smartHome.Execute(checkTheHallDoor);
+            smartHome.execute(checkTheHallDoor);
         }
     }
 
@@ -34,6 +34,6 @@ public class HallDoorEventHandler implements EventHandler {
                 turnTheLightOffCommand((Light) homeObject);
             }
         });
-        smartHome.Execute(action);
+        smartHome.execute(action);
     }
 }

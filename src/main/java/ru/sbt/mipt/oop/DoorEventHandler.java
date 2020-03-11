@@ -22,7 +22,7 @@ public class DoorEventHandler implements EventHandler {
                     }
                 }
             });
-            smartHome.Execute(action);
+            smartHome.execute(action);
         }
     }
 
