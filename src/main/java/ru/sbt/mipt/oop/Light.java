@@ -1,12 +1,11 @@
 package ru.sbt.mipt.oop;
 
-import static ru.sbt.mipt.oop.ObjectType.LIGHT;
 
 public class Light extends HomeObject {
     private boolean isOn;
 
     public Light(String id, boolean isOn) {
-        super(id, LIGHT);
+        super(id);
         this.isOn = isOn;
     }
 

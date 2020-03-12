@@ -2,7 +2,6 @@ package ru.sbt.mipt.oop;
 
 import static ru.sbt.mipt.oop.DoorEventType.DOOR_CLOSED;
 import static ru.sbt.mipt.oop.LightCommands.turnTheLightOffCommand;
-import static ru.sbt.mipt.oop.ObjectType.*;
 
 public class HallDoorEventHandler implements EventHandler {
     private final SmartHome smartHome;
@@ -13,11 +12,11 @@ public class HallDoorEventHandler implements EventHandler {
 
     @Override
     public void handleEvent(SensorEvent event) {
-        if (event.getType() == DOOR && ((DoorEvent) event).getDoorEventType() == DOOR_CLOSED) {
+        if (event instanceof DoorEvent && ((DoorEvent) event).getDoorEventType() == DOOR_CLOSED) {
             Action checkTheHallDoor = new Action((HomeObject homeObject) -> {
-               if (homeObject.getObjectType() == ROOM && homeObject.getId().equals("hall")) {
+               if (homeObject instanceof Room && homeObject.getId().equals("hall")) {
                    Action action = new Action((HomeObject currentRoomObject) -> {
-                       if (currentRoomObject.getObjectType() == DOOR && currentRoomObject.getId().equals(event.getObjectId())) {
+                       if (currentRoomObject instanceof Door && currentRoomObject.getId().equals(event.getObjectId())) {
                            turnOffAllTheLights();
                        }
                    });
@@ -30,7 +29,7 @@ public class HallDoorEventHandler implements EventHandler {
 
     private void turnOffAllTheLights() {
         Action action = new Action((HomeObject homeObject) -> {
-            if (homeObject.getObjectType() == LIGHT) {
+            if (homeObject instanceof Light) {
                 turnTheLightOffCommand((Light) homeObject);
             }
         });

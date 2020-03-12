@@ -31,10 +31,8 @@ public class HallDoorEventHandlerTest {
     public void turnOffTheLights() {
         handler = new HallDoorEventHandler(smartHome);
         handler.handleEvent(doorEvent);
-        Mockito.when(doorEvent.getType()).thenReturn(ObjectType.DOOR);
         Mockito.when(doorEvent.getObjectId()).thenReturn(door.getId());
         Mockito.when(doorEvent.getDoorEventType()).thenReturn(DoorEventType.DOOR_CLOSED);
-        Mockito.when(room.getObjectType()).thenReturn(ObjectType.ROOM);
         Mockito.when(room.getId()).thenReturn("hall");
         Mockito.doAnswer((Answer<Void>) invocation -> {
             Object[] args = invocation.getArguments();
@@ -57,9 +55,7 @@ public class HallDoorEventHandlerTest {
     public void ignoreWrongRooms() {
         handler = new HallDoorEventHandler(smartHome);
         handler.handleEvent(doorEvent);
-        Mockito.when(doorEvent.getType()).thenReturn(ObjectType.DOOR);
         Mockito.when(doorEvent.getDoorEventType()).thenReturn(DoorEventType.DOOR_CLOSED);
-        Mockito.when(room.getObjectType()).thenReturn(ObjectType.ROOM);
         Mockito.when(room.getId()).thenReturn("not hall");
         Mockito.doAnswer((Answer<Void>) invocation -> {
             Object[] args = invocation.getArguments();

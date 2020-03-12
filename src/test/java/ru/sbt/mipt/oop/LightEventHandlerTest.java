@@ -26,7 +26,6 @@ public class LightEventHandlerTest {
     public void turnTheLightOff() {
         handler = new LightEventHandler(smartHome);
         handler.handleEvent(lightEvent);
-        Mockito.when(lightEvent.getType()).thenReturn(ObjectType.LIGHT);
         Mockito.when(lightEvent.getObjectId()).thenReturn(light.getId());
         Mockito.when(lightEvent.getLightEventType()).thenReturn(LightEventType.LIGHT_OFF);
         Mockito.doAnswer((Answer<Void>) invocation -> {
@@ -42,7 +41,6 @@ public class LightEventHandlerTest {
     public void turnTheLightOn() {
         handler = new LightEventHandler(smartHome);
         handler.handleEvent(lightEvent);
-        Mockito.when(lightEvent.getType()).thenReturn(ObjectType.LIGHT);
         Mockito.when(lightEvent.getObjectId()).thenReturn(light.getId());
         Mockito.when(lightEvent.getLightEventType()).thenReturn(LightEventType.LIGHT_ON);
         Mockito.doAnswer((Answer<Void>) invocation -> {
