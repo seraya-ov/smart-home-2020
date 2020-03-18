@@ -12,7 +12,7 @@ public class DoorEventHandler implements EventHandler {
     @Override
     public void handleEvent(SensorEvent event) {
         if (event instanceof DoorEvent) {
-            Action action = new Action((HomeObject homeObject) -> {
+            Action action = (HomeObject homeObject) -> {
                 if (homeObject instanceof Door && homeObject.getId().equals(event.getObjectId())) {
                     if (((DoorEvent) event).getDoorEventType() == DOOR_OPEN) {
                         OpenTheDoor((Door) homeObject);
@@ -20,7 +20,7 @@ public class DoorEventHandler implements EventHandler {
                         CloseTheDoor((Door) homeObject);
                     }
                 }
-            });
+            };
             smartHome.execute(action);
         }
     }

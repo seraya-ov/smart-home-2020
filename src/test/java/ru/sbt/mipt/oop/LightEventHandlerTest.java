@@ -30,7 +30,7 @@ public class LightEventHandlerTest {
         Mockito.when(lightEvent.getLightEventType()).thenReturn(LightEventType.LIGHT_OFF);
         Mockito.doAnswer((Answer<Void>) invocation -> {
             Object[] args = invocation.getArguments();
-            ((Action)args[0]).getAction().accept(light);
+            ((Action)args[0]).accept(light);
             return null;
         }).when(smartHome).execute(Mockito.any(Action.class));
         handler.handleEvent(lightEvent);
@@ -45,7 +45,7 @@ public class LightEventHandlerTest {
         Mockito.when(lightEvent.getLightEventType()).thenReturn(LightEventType.LIGHT_ON);
         Mockito.doAnswer((Answer<Void>) invocation -> {
             Object[] args = invocation.getArguments();
-            ((Action)args[0]).getAction().accept(light);
+            ((Action)args[0]).accept(light);
             return null;
         }).when(smartHome).execute(Mockito.any(Action.class));
         handler.handleEvent(lightEvent);

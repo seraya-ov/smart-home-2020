@@ -36,15 +36,15 @@ public class HallDoorEventHandlerTest {
         Mockito.when(room.getId()).thenReturn("hall");
         Mockito.doAnswer((Answer<Void>) invocation -> {
             Object[] args = invocation.getArguments();
-            ((Action)args[0]).getAction().accept(room);
-            ((Action)args[0]).getAction().accept(door);
-            ((Action)args[0]).getAction().accept(light);
+            ((Action)args[0]).accept(room);
+            ((Action)args[0]).accept(door);
+            ((Action)args[0]).accept(light);
             return null;
         }).when(smartHome).execute(Mockito.any(Action.class));
         Mockito.doAnswer((Answer<Void>) invocation -> {
             Object[] args = invocation.getArguments();
-            ((Action)args[0]).getAction().accept(light);
-            ((Action)args[0]).getAction().accept(door);
+            ((Action)args[0]).accept(light);
+            ((Action)args[0]).accept(door);
             return null;
         }).when(room).execute(Mockito.any(Action.class));
         handler.handleEvent(doorEvent);
@@ -59,7 +59,7 @@ public class HallDoorEventHandlerTest {
         Mockito.when(room.getId()).thenReturn("not hall");
         Mockito.doAnswer((Answer<Void>) invocation -> {
             Object[] args = invocation.getArguments();
-            ((Action)args[0]).getAction().accept(room);
+            ((Action)args[0]).accept(room);
             return null;
         }).when(smartHome).execute(Mockito.any(Action.class));
         handler.handleEvent(doorEvent);

@@ -15,8 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @RunWith(MockitoJUnitRunner.class)
 public class RoomTest {
     @Mock
-    Action action;
-    @Mock
     Light light;
     @Mock
     Door door;
@@ -28,8 +26,7 @@ public class RoomTest {
     @Test
     public void executeEmptyRoom() {
         room = new Room(new ArrayList<>(), new ArrayList<>(), "my_room");
-        Mockito.when(action.getAction()).thenReturn((HomeObject homeObject) -> {
-        });
+        Action action = (HomeObject homeObject) -> {};
         room.execute(action);
     }
 
@@ -37,7 +34,7 @@ public class RoomTest {
     public void executeNotEmptyRoom() {
         room = new Room(new ArrayList<>(Collections.singletonList(light)), new ArrayList<>(Collections.singletonList(door)), "my_room");
         final int[] calls_cnt = {0};
-        Mockito.when(action.getAction()).thenReturn((HomeObject homeObject) -> calls_cnt[0] += 1);
+        Action action = (HomeObject homeObject) -> calls_cnt[0] += 1;
         room.execute(action);
         assertEquals(3, calls_cnt[0]);
     }

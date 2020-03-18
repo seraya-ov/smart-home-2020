@@ -32,7 +32,7 @@ public class DoorEventHandlerTest {
         Mockito.when(doorEvent.getDoorEventType()).thenReturn(DoorEventType.DOOR_CLOSED);
         Mockito.doAnswer((Answer<Void>) invocation -> {
             Object[] args = invocation.getArguments();
-            ((Action) args[0]).getAction().accept(door);
+            ((Action) args[0]).accept(door);
             return null;
         }).when(smartHome).execute(Mockito.any(Action.class));
         handler.handleEvent(doorEvent);
@@ -47,7 +47,7 @@ public class DoorEventHandlerTest {
         Mockito.when(doorEvent.getDoorEventType()).thenReturn(DoorEventType.DOOR_OPEN);
         Mockito.doAnswer((Answer<Void>) invocation -> {
             Object[] args = invocation.getArguments();
-            ((Action) args[0]).getAction().accept(door);
+            ((Action) args[0]).accept(door);
             return null;
         }).when(smartHome).execute(Mockito.any(Action.class));
         handler.handleEvent(doorEvent);

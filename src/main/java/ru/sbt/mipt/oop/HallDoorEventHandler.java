@@ -13,26 +13,26 @@ public class HallDoorEventHandler implements EventHandler {
     @Override
     public void handleEvent(SensorEvent event) {
         if (event instanceof DoorEvent && ((DoorEvent) event).getDoorEventType() == DOOR_CLOSED) {
-            Action checkTheHallDoor = new Action((HomeObject homeObject) -> {
+            Action checkTheHallDoor = (HomeObject homeObject) -> {
                if (homeObject instanceof Room && homeObject.getId().equals("hall")) {
-                   Action action = new Action((HomeObject currentRoomObject) -> {
+                   Action action = (HomeObject currentRoomObject) -> {
                        if (currentRoomObject instanceof Door && currentRoomObject.getId().equals(event.getObjectId())) {
                            turnOffAllTheLights();
                        }
-                   });
+                   };
                    ((Room) homeObject).execute(action);
                }
-            });
+            };
             smartHome.execute(checkTheHallDoor);
         }
     }
 
     private void turnOffAllTheLights() {
-        Action action = new Action((HomeObject homeObject) -> {
+        Action action = (HomeObject homeObject) -> {
             if (homeObject instanceof Light) {
                 turnTheLightOffCommand((Light) homeObject);
             }
-        });
+        };
         smartHome.execute(action);
     }
 }

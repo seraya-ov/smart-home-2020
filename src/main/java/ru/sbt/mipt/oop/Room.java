@@ -28,12 +28,12 @@ public class Room extends HomeObject implements Actionable {
 
     @Override
     public void execute(Action action) {
-        action.getAction().accept(this);
+        action.accept(this);
         for (Door door : doors) {
-            action.getAction().accept(door);
+            action.accept(door);
         }
         for (Light light : lights) {
-            action.getAction().accept(light);
+            action.accept(light);
         }
     }
 
