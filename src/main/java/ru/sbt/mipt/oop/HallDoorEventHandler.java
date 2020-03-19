@@ -2,7 +2,6 @@ package ru.sbt.mipt.oop;
 
 import static ru.sbt.mipt.oop.DoorEventType.DOOR_CLOSED;
 import static ru.sbt.mipt.oop.LightCommands.turnTheLightOffCommand;
-import static ru.sbt.mipt.oop.ObjectType.*;
 
 public class HallDoorEventHandler implements EventHandler {
     private final SmartHome smartHome;
@@ -13,27 +12,27 @@ public class HallDoorEventHandler implements EventHandler {
 
     @Override
     public void handleEvent(SensorEvent event) {
-        if (event.getType() == DOOR && ((DoorEvent) event).getDoorEventType() == DOOR_CLOSED) {
-            Action checkTheHallDoor = new Action((HomeObject homeObject) -> {
-               if (homeObject.getObjectType() == ROOM && homeObject.getId().equals("hall")) {
-                   Action action = new Action((HomeObject currentRoomObject) -> {
-                       if (currentRoomObject.getObjectType() == DOOR && currentRoomObject.getId().equals(event.getObjectId())) {
+        if (event instanceof DoorEvent && ((DoorEvent) event).getDoorEventType() == DOOR_CLOSED) {
+            Action checkTheHallDoor = (HomeObject homeObject) -> {
+               if (homeObject instanceof Room && homeObject.getId().equals("hall")) {
+                   Action action = (HomeObject currentRoomObject) -> {
+                       if (currentRoomObject instanceof Door && currentRoomObject.getId().equals(event.getObjectId())) {
                            turnOffAllTheLights();
                        }
-                   });
-                   ((Room) homeObject).Execute(action);
+                   };
+                   ((Room) homeObject).execute(action);
                }
-            });
-            smartHome.Execute(checkTheHallDoor);
+            };
+            smartHome.execute(checkTheHallDoor);
         }
     }
 
     private void turnOffAllTheLights() {
-        Action action = new Action((HomeObject homeObject) -> {
-            if (homeObject.getObjectType() == LIGHT) {
+        Action action = (HomeObject homeObject) -> {
+            if (homeObject instanceof Light) {
                 turnTheLightOffCommand((Light) homeObject);
             }
-        });
-        smartHome.Execute(action);
+        };
+        smartHome.execute(action);
     }
 }

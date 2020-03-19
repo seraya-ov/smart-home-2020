@@ -4,7 +4,7 @@ public class LightEvent extends SensorEvent{
     private final LightEventType lightEventType;
 
     public LightEvent(String objectId, LightEventType lightEventType) {
-        super(objectId, ObjectType.LIGHT);
+        super(objectId);
         this.lightEventType = lightEventType;
     }
 

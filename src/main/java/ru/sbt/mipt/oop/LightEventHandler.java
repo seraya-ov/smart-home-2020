@@ -1,7 +1,6 @@
 package ru.sbt.mipt.oop;
 
 import static ru.sbt.mipt.oop.LightEventType.LIGHT_ON;
-import static ru.sbt.mipt.oop.ObjectType.LIGHT;
 
 public class LightEventHandler implements EventHandler{
     private final SmartHome smartHome;
@@ -12,17 +11,17 @@ public class LightEventHandler implements EventHandler{
 
     @Override
     public void handleEvent(SensorEvent event) {
-        if (event.getType() == LIGHT) {
-            Action action = new Action((HomeObject homeObject) -> {
-                if (homeObject.getObjectType() == LIGHT && homeObject.getId().equals(event.getObjectId())) {
+        if (event instanceof LightEvent) {
+            Action action = (HomeObject homeObject) -> {
+                if (homeObject instanceof Light && homeObject.getId().equals(event.getObjectId())) {
                     if (((LightEvent) event).getLightEventType() == LIGHT_ON) {
                         turnTheLightOn((Light) homeObject);
                     } else {
                         turnTheLightOff((Light) homeObject);
                     }
                 }
-            });
-            smartHome.Execute(action);
+            };
+            smartHome.execute(action);
         }
     }
 

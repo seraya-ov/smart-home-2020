@@ -2,15 +2,13 @@ package ru.sbt.mipt.oop;
 
 import java.util.Collection;
 
-import static ru.sbt.mipt.oop.ObjectType.ROOM;
-
 public class Room extends HomeObject implements Actionable {
     private Collection<Light> lights;
     private Collection<Door> doors;
     private String name;
 
     public Room(Collection<Light> lights, Collection<Door> doors, String name) {
-        super(name, ROOM);
+        super(name);
         this.lights = lights;
         this.doors = doors;
         this.name = name;
@@ -29,13 +27,13 @@ public class Room extends HomeObject implements Actionable {
     }
 
     @Override
-    public void Execute(Action action) {
-        action.getAction().accept(this);
+    public void execute(Action action) {
+        action.accept(this);
         for (Door door : doors) {
-            action.getAction().accept(door);
+            action.accept(door);
         }
         for (Light light : lights) {
-            action.getAction().accept(light);
+            action.accept(light);
         }
     }
 
