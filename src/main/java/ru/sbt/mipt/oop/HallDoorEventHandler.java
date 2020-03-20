@@ -3,7 +3,7 @@ package ru.sbt.mipt.oop;
 import static ru.sbt.mipt.oop.DoorEventType.DOOR_CLOSED;
 import static ru.sbt.mipt.oop.LightCommands.turnTheLightOffCommand;
 
-public class HallDoorEventHandler implements EventHandler {
+public class HallDoorEventHandler implements SensorEventHandler {
     private final SmartHome smartHome;
 
     public HallDoorEventHandler(SmartHome smartHome) {

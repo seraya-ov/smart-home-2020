@@ -4,18 +4,18 @@ import java.util.List;
 
 public class EventSequence {
     private final NextSensorEventGenerator nextSensorEventGenerator;
-    private final List<EventHandler> eventHandlers;
+    private final List<SensorEventHandler> sensorEventHandlers;
 
-    public EventSequence(NextSensorEventGenerator nextSensorEventGenerator, List<EventHandler> eventHandlers) {
+    public EventSequence(NextSensorEventGenerator nextSensorEventGenerator, List<SensorEventHandler> sensorEventHandlers) {
         this.nextSensorEventGenerator = nextSensorEventGenerator;
-        this.eventHandlers = eventHandlers;
+        this.sensorEventHandlers = sensorEventHandlers;
     }
 
     public void run() {
         SensorEvent event = nextSensorEventGenerator.getNextSensorEvent();
         while (event != null) {
             System.out.println("Got event: " + event);
-            for (EventHandler handler: eventHandlers) {
+            for (SensorEventHandler handler: sensorEventHandlers) {
                 handler.handleEvent(event);
             }
             event = nextSensorEventGenerator.getNextSensorEvent();

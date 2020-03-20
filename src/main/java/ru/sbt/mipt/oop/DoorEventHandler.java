@@ -2,7 +2,7 @@ package ru.sbt.mipt.oop;
 
 import static ru.sbt.mipt.oop.DoorEventType.*;
 
-public class DoorEventHandler implements EventHandler {
+public class DoorEventHandler implements SensorEventHandler {
     private final SmartHome smartHome;
 
     public DoorEventHandler(SmartHome smartHome) {
