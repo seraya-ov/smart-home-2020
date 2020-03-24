@@ -1,39 +1,33 @@
 package ru.sbt.mipt.oop.objects.alarm;
 
-public class SmartAlarm implements Alarm {
-    private Alarm alarm;
+public class SmartAlarm {
+    private AlarmState state;
 
     public SmartAlarm() {
-        this.alarm = new DeactivatedAlarm();
+        this.state = new DeactivatedAlarmState();
     }
 
-    @Override
-    public Alarm activate(String code) {
-        alarm = alarm.activate(code);
-        return this;
+    public void activate(String code) {
+        state = state.activate(code);
     }
 
-    @Override
-    public Alarm deactivate(String code) {
-        alarm = alarm.deactivate(code);
-        return this;
+    public void deactivate(String code) {
+        state = state.deactivate(code);
     }
 
-    @Override
-    public Alarm alert() {
-        alarm = alarm.alert();
-        return this;
+    public void alert() {
+        state = state.alert();
     }
 
     public boolean isActivated() {
-        return (alarm instanceof ActivatedAlarm);
+        return (state instanceof ActivatedAlarmState);
     }
 
     public boolean isDeactivated() {
-        return (alarm instanceof DeactivatedAlarm);
+        return (state instanceof DeactivatedAlarmState);
     }
 
     public  boolean isAlert() {
-        return (alarm instanceof AlertAlarm);
+        return (state instanceof AlertAlarmState);
     }
 }

@@ -2,7 +2,7 @@ package ru.sbt.mipt.oop.application;
 
 import ru.sbt.mipt.oop.events.SensorEvent;
 import ru.sbt.mipt.oop.generators.NextSensorEventGenerator;
-import ru.sbt.mipt.oop.handlers.sensor_event_handlers.SensorEventHandler;
+import ru.sbt.mipt.oop.handlers.SensorEventHandler;
 
 import java.util.List;
 

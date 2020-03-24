@@ -1,27 +1,27 @@
 package ru.sbt.mipt.oop.objects.alarm;
 
-public class AlertAlarm implements Alarm {
+public class AlertAlarmState implements AlarmState {
     private final String code;
 
-    public AlertAlarm(String code) {
+    public AlertAlarmState(String code) {
         this.code = code;
     }
 
     @Override
-    public Alarm activate(String code) {
+    public AlarmState activate(String code) {
         return this;
     }
 
     @Override
-    public Alarm deactivate(String code) {
+    public AlarmState deactivate(String code) {
         if (code.equals(this.code)) {
-            return new DeactivatedAlarm();
+            return new DeactivatedAlarmState();
         }
         return this;
     }
 
     @Override
-    public Alarm alert() {
+    public AlarmState alert() {
         return this;
     }
 }

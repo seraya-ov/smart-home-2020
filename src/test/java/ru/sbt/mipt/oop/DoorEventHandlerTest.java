@@ -9,7 +9,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 import ru.sbt.mipt.oop.actions.Action;
 import ru.sbt.mipt.oop.events.DoorEvent;
-import ru.sbt.mipt.oop.handlers.sensor_event_handlers.DoorEventHandler;
+import ru.sbt.mipt.oop.handlers.DoorEventHandler;
 import ru.sbt.mipt.oop.objects.home_objects.Door;
 import ru.sbt.mipt.oop.objects.home_objects.actionable.SmartHome;
 import ru.sbt.mipt.oop.types.DoorEventType;
