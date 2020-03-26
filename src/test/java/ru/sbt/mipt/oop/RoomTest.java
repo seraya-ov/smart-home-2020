@@ -5,6 +5,11 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import ru.sbt.mipt.oop.actions.Action;
+import ru.sbt.mipt.oop.objects.home_objects.Door;
+import ru.sbt.mipt.oop.objects.home_objects.HomeObject;
+import ru.sbt.mipt.oop.objects.home_objects.Light;
+import ru.sbt.mipt.oop.objects.home_objects.actionable.Room;
 
 import java.util.ArrayList;
 import java.util.Collections;
