@@ -9,7 +9,6 @@ import java.util.Collection;
 
 public class SmartHome extends HomeObject implements Actionable {
     Collection<Room> rooms;
-    AlarmState alarm;
 
     public SmartHome() {
         super("home");
