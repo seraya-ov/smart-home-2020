@@ -13,11 +13,26 @@ public class MyConfiguration {
     SensorEventsManager sensorEventsManager() {
         SensorEventsManager manager = new SensorEventsManager();
 
-        SmartHome smartHome = new SmartHomeReader().getSmartHomeFromJson("output.js");
-        SmartAlarm alarm = new SmartAlarm();
-
-        manager.registerEventHandler(new CCSensorEventAdapter(smartHome, alarm));
+        manager.registerEventHandler(ccSensorEventAdapter(smartHome(), smartAlarm()));
 
         return manager;
+    }
+
+    @Bean
+    SmartHome smartHome() {
+        SmartHome smartHome = new SmartHomeReader().getSmartHomeFromJson("output.js");
+        return smartHome;
+    }
+
+    @Bean
+    SmartAlarm smartAlarm() {
+        SmartAlarm alarm = new SmartAlarm();
+        return alarm;
+    }
+
+    @Bean
+    CCSensorEventAdapter ccSensorEventAdapter(SmartHome smartHome, SmartAlarm smartAlarm) {
+        CCSensorEventAdapter ccSensorEventAdapter = new CCSensorEventAdapter(smartHome, smartAlarm);
+        return ccSensorEventAdapter;
     }
 }
