@@ -27,7 +27,7 @@ public class CCSensorEventAdapter implements EventHandler {
     @Override
     public void handleEvent(CCSensorEvent event) {
         String type = event.getEventType();
-        if (type.equals("DoorIsLocked") || type.equals("DoorIsUnlocked")) return;
+        if (!map.containsKey(type)) return;
         SensorEvent sensorEvent = map.get(type).create(event.getObjectId());
 
         List<SensorEventHandler> sensorEventHandlers = Arrays.asList(new DoorEventHandler(smartHome), new LightEventHandler(smartHome), new HallDoorEventHandler(smartHome));
