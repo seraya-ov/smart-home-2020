@@ -23,7 +23,6 @@ public class CCSensorEventAdapter implements EventHandler {
         this.map = map;
     }
 
-    //"LightIsOn", "LightIsOff", "DoorIsOpen", "DoorIsClosed", "DoorIsLocked", "DoorIsUnlocked"
     @Override
     public void handleEvent(CCSensorEvent event) {
         String type = event.getEventType();
