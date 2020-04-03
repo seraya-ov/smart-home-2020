@@ -28,15 +28,15 @@ public class SmartRemoteControlTest {
 
     @Test
     public void canBeInitializedSuccessfully() {
-        Map<String, Command> commandMap = Map.of(
+        UniqueRemoteControl remoteControlMap = new UniqueRemoteControl(Map.of(
                 "A", activateTheAlarmCommand,
                 "B", alertAlarmCommand,
                 "C", closeTheHallDoorCommand,
                 "D", turnOffAllTheLightsCommand,
                 "F", turnOnAllTheLightsCommand
-        );
-        Map<String, Map<String, Command>> idMap = Map.of(
-                "12", commandMap
+        ));
+        Map<String, UniqueRemoteControl> idMap = Map.of(
+                "12", remoteControlMap
         );
         smartRemoteControl = new SmartRemoteControl(idMap);
         assertNotNull(smartRemoteControl);
@@ -44,15 +44,15 @@ public class SmartRemoteControlTest {
 
     @Test
     public void correctOnButtonPressedCall() {
-        Map<String, Command> commandMap = Map.of(
+        UniqueRemoteControl remoteControlMap = new UniqueRemoteControl(Map.of(
                 "A", activateTheAlarmCommand,
                 "B", alertAlarmCommand,
                 "C", closeTheHallDoorCommand,
                 "D", turnOffAllTheLightsCommand,
                 "F", turnOnAllTheLightsCommand
-        );
-        Map<String, Map<String, Command>> idMap = Map.of(
-                "12", commandMap
+        ));
+        Map<String, UniqueRemoteControl> idMap = Map.of(
+                "12", remoteControlMap
         );
         smartRemoteControl = new SmartRemoteControl(idMap);
         Mockito.doAnswer((Answer<Void>) invocation -> null).when(activateTheAlarmCommand).execute();

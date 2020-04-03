@@ -5,14 +5,20 @@ import rc.RemoteControl;
 import java.util.Map;
 
 public class SmartRemoteControl implements RemoteControl {
-    private final Map<String, Map<String, Command>> state;
+    private final Map<String, UniqueRemoteControl> uniqueRemoteControls;
 
-    public SmartRemoteControl(Map<String, Map<String, Command>> state) {
-        this.state = state;
+    public SmartRemoteControl(Map<String, UniqueRemoteControl> uniqueRemoteControlMap) {
+        this.uniqueRemoteControls = uniqueRemoteControlMap;
     }
 
     @Override
     public void onButtonPressed(String buttonCode, String rcId) {
-        state.get(rcId).get(buttonCode).execute();
+        if (uniqueRemoteControls.containsKey(rcId)) {
+            UniqueRemoteControl remote_control = uniqueRemoteControls.get(rcId);
+            Command command = remote_control.getCommandByButton(buttonCode);
+            if (command != null) {
+                command.execute();
+            }
+        }
     }
 }

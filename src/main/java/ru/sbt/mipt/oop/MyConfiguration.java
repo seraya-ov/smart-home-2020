@@ -7,6 +7,8 @@ import ru.sbt.mipt.oop.adapters.CCDoorEventCreator;
 import ru.sbt.mipt.oop.adapters.CCEventCreator;
 import ru.sbt.mipt.oop.adapters.CCLightEventCreator;
 import ru.sbt.mipt.oop.adapters.CCSensorEventAdapter;
+import ru.sbt.mipt.oop.handlers.*;
+import ru.sbt.mipt.oop.handlers.decorators.AlarmSensorEventHandler;
 import ru.sbt.mipt.oop.objects.alarm.SmartAlarm;
 import ru.sbt.mipt.oop.objects.home_objects.actionable.SmartHome;
 import ru.sbt.mipt.oop.objects.remote_control.*;
@@ -14,6 +16,8 @@ import ru.sbt.mipt.oop.readers.SmartHomeReader;
 import ru.sbt.mipt.oop.types.DoorEventType;
 import ru.sbt.mipt.oop.types.LightEventType;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 @Configuration
@@ -45,7 +49,14 @@ public class MyConfiguration {
                 "DoorIsOpen", new CCDoorEventCreator(DoorEventType.DOOR_OPEN),
                 "DoorIsClosed", new CCDoorEventCreator(DoorEventType.DOOR_CLOSED)
         );
-        return new CCSensorEventAdapter(smartHome, smartAlarm, map);
+        return new CCSensorEventAdapter(map, handlers(smartHome, smartAlarm));
+    }
+
+    @Bean
+    List<SensorEventHandler> handlers(SmartHome smartHome, SmartAlarm alarm) {
+        List<SensorEventHandler> sensorEventHandlers = Arrays.asList(new DoorEventHandler(smartHome), new LightEventHandler(smartHome), new HallDoorEventHandler(smartHome));
+
+        return Arrays.asList(new AlarmSensorEventHandler(alarm, sensorEventHandlers), new AlarmEventHandler(alarm));
     }
 
     @Bean
@@ -59,21 +70,25 @@ public class MyConfiguration {
     }
 
     @Bean
-    SmartRemoteControl smartRemoteControl(Map<String, Map<String, Command>> state) {
+    SmartRemoteControl smartRemoteControl(Map<String, UniqueRemoteControl> state) {
         return new SmartRemoteControl(state);
     }
 
     @Bean
-    Map<String, Map<String, Command>> state(SmartHome smartHome, SmartAlarm alarm) {
-        Map<String, Command> commandMap = Map.of(
+    Map<String, UniqueRemoteControl> state(SmartHome smartHome, SmartAlarm alarm) {
+        return Map.of(
+                "1", remoteControl(smartHome, alarm)
+        );
+    }
+
+    @Bean
+    UniqueRemoteControl remoteControl(SmartHome smartHome, SmartAlarm alarm) {
+        return new UniqueRemoteControl(Map.of(
                 "A", new ActivateTheAlarmCommand(alarm),
                 "B", new AlertAlarmCommand(alarm),
                 "C", new CloseTheHallDoorCommand(smartHome),
                 "D", new TurnOffAllTheLightsCommand(smartHome),
                 "F", new TurnOnAllTheLightsCommand(smartHome)
-        );
-        return Map.of(
-                "1", commandMap
-        );
+        ));
     }
 }
