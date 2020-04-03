@@ -6,12 +6,16 @@ import ru.sbt.mipt.oop.adapters.CCDoorEventCreator;
 import ru.sbt.mipt.oop.adapters.CCEventCreator;
 import ru.sbt.mipt.oop.adapters.CCLightEventCreator;
 import ru.sbt.mipt.oop.adapters.CCSensorEventAdapter;
+import ru.sbt.mipt.oop.handlers.*;
+import ru.sbt.mipt.oop.handlers.decorators.AlarmSensorEventHandler;
 import ru.sbt.mipt.oop.objects.alarm.SmartAlarm;
 import ru.sbt.mipt.oop.objects.home_objects.actionable.SmartHome;
 import ru.sbt.mipt.oop.readers.SmartHomeReader;
 import ru.sbt.mipt.oop.types.DoorEventType;
 import ru.sbt.mipt.oop.types.LightEventType;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 @Configuration
@@ -43,6 +47,13 @@ public class MyConfiguration {
                 "DoorIsOpen", new CCDoorEventCreator(DoorEventType.DOOR_OPEN),
                 "DoorIsClosed", new CCDoorEventCreator(DoorEventType.DOOR_CLOSED)
         );
-        return new CCSensorEventAdapter(smartHome, smartAlarm, map);
+        return new CCSensorEventAdapter(smartHome, smartAlarm, map, handlers(smartHome, smartAlarm));
+    }
+
+    @Bean
+    List<SensorEventHandler> handlers(SmartHome smartHome, SmartAlarm alarm) {
+        List<SensorEventHandler> sensorEventHandlers = Arrays.asList(new DoorEventHandler(smartHome), new LightEventHandler(smartHome), new HallDoorEventHandler(smartHome));
+
+        return Arrays.asList(new AlarmSensorEventHandler(alarm, sensorEventHandlers), new AlarmEventHandler(alarm));
     }
 }

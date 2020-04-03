@@ -16,11 +16,13 @@ public class CCSensorEventAdapter implements EventHandler {
     private final SmartHome smartHome;
     private final SmartAlarm alarm;
     private final Map<String, CCEventCreator> map;
+    private final List<SensorEventHandler> handlers;
 
-    public CCSensorEventAdapter(SmartHome smartHome, SmartAlarm alarm, Map<String, CCEventCreator> map) {
+    public CCSensorEventAdapter(SmartHome smartHome, SmartAlarm alarm, Map<String, CCEventCreator> map, List<SensorEventHandler> handlers) {
         this.smartHome = smartHome;
         this.alarm = alarm;
         this.map = map;
+        this.handlers = handlers;
     }
 
     @Override
@@ -28,9 +30,6 @@ public class CCSensorEventAdapter implements EventHandler {
         String type = event.getEventType();
         if (!map.containsKey(type)) return;
         SensorEvent sensorEvent = map.get(type).create(event.getObjectId());
-
-        List<SensorEventHandler> sensorEventHandlers = Arrays.asList(new DoorEventHandler(smartHome), new LightEventHandler(smartHome), new HallDoorEventHandler(smartHome));
-        List<SensorEventHandler> handlers = Arrays.asList(new AlarmSensorEventHandler(alarm, sensorEventHandlers), new AlarmEventHandler(alarm));
 
         for (SensorEventHandler handler : handlers) {
             handler.handleEvent(sensorEvent);
